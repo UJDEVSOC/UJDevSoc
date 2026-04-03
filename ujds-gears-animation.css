@@ -1,0 +1,96 @@
+/*  UJ Dev Soc - Gears Animation Library
+
+    This the properry of UJ developer Society, usage and rights must be communicated to the Head or Deupty of the 
+    Soceity.
+
+    This stylesheet handles all gear-related animations, 
+    sizing, and decorative positioning.
+    By OSP aka Steve :) 
+*/
+
+:root {
+    --gear-orange: #b73a08;
+    --gear-dark: #1a1a1a;
+    --gear-light: rgba(255, 255, 255, 0.1);
+    --animation-speed-slow: 60s;
+    --animation-speed-med: 30s;
+    --animation-speed-fast: 10s;
+}
+
+/* Base Gear Container & Icon Targeting */
+.gear-wrapper, 
+.fa-gear, 
+.fa-cog {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Gear Sizes - Applied to the icon or wrapper */
+.gear-sm { font-size: 50px !important; }
+.gear-md { font-size: 150px !important; }
+.gear-lg { font-size: 300px !important; }
+.gear-xl { font-size: 500px !important; }
+
+/* Border/Dashed Ring Containers */
+.gear-ring {
+    border: 2px dashed rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.gear-ring-orange { border-color: var(--gear-orange); }
+.gear-ring-light { border-color: rgba(255, 255, 255, 0.2); }
+
+/* Animation Keyframes */
+@keyframes gear-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Animation Classes - Can be applied to <i> or <div> */
+.spin-slow {
+    animation: gear-spin var(--animation-speed-slow) linear infinite !important;
+}
+
+.spin-med {
+    animation: gear-spin var(--animation-speed-med) linear infinite !important;
+}
+
+.spin-fast {
+    animation: gear-spin var(--animation-speed-fast) linear infinite !important;
+}
+
+.reverse {
+    animation-direction: reverse !important;
+}
+
+/* Positioning Utilities for Decorative Background Gears */
+.pos-top-left { position: absolute; top: -10%; left: -10%; z-index: 0; }
+.pos-top-right { position: absolute; top: -10%; right: -10%; z-index: 0; }
+.pos-bottom-left { position: absolute; bottom: -10%; left: -10%; z-index: 0; }
+.pos-bottom-right { position: absolute; bottom: -10%; right: -10%; z-index: 0; }
+
+/* Specific Themes */
+.gear-ghost {
+    opacity: 0.1;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+.gear-interactive {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.gear-interactive:hover {
+    color: var(--gear-orange) !important;
+}
+
+/* Color Helpers */
+.text-orange { color: var(--gear-orange) !important; }
+.text-dark { color: var(--gear-dark) !important; }
+.text-white-fade { color: var(--gear-light) !important; }

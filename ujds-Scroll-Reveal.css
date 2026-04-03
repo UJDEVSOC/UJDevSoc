@@ -1,0 +1,44 @@
+/* UJ Dev Soc - Scroll Reveal Library 
+    A lightweight utility for scroll-triggered animations.
+
+
+
+    
+*/
+
+:root {
+    --reveal-duration: 0.8s;
+    --reveal-timing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --reveal-distance: 50px;
+}
+
+/* Base State: Hidden */
+.reveal {
+    opacity: 0;
+    transition: all var(--reveal-duration) var(--reveal-timing);
+    will-change: transform, opacity;
+}
+
+/* Animation Directions */
+.reveal-up { transform: translateY(var(--reveal-distance)); }
+.reveal-down { transform: translateY(calc(var(--reveal-distance) * -1)); }
+.reveal-left { transform: translateX(var(--reveal-distance)); }
+.reveal-right { transform: translateX(calc(var(--reveal-distance) * -1)); }
+.reveal-scale { transform: scale(0.8); }
+
+/* Active State: Triggered via JS */
+.reveal.active {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+}
+
+/* Staggered Delays for Grids (up to 5 items) */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* Custom Durations */
+.reveal-slow { --reveal-duration: 1.5s; }
+.reveal-fast { --reveal-duration: 0.4s; }
