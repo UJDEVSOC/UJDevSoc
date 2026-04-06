@@ -19,6 +19,7 @@
   border: 1px solid rgb(255,255,255,0.3);
   box-shadow: 0 8px 32px rgb(0, 0, 0,0.1);
   
+  width: 50vw;
 }
 
 .nav-links{
@@ -115,93 +116,66 @@
     margin-top: 8px;
 }
 
-@media (max-width: 900px) {
-    .nav-bar {
-        width: calc(100% - 30px);
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 12px 16px;
-        gap: 12px;
-        border-radius: 30px;
-    }
 
-    .nav-links {
-        display: none;
-    }
 
-    .nav-btn-cta {
-        display: none;
-    }
 
-    .nav-toggle {
-        display: flex;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav-bar {
-        top: 10px;
-        padding: 10px 12px;
-        max-width: 50%;
-    }
-
-    
-
-    .nav-toggle {
-        width: 32px;
-        height: 24px;
-    }
-}
-
-@media (max-width: 780px) {
-    .nav-bar {
-        top: 10px;
-        padding: 10px 12px;
-        max-width: 50%;
-    }
-
-    
-
-    .nav-toggle {
-        width: 32px;
-        height: 24px;
-    }
-}
-
-@media (max-width: 1028px) {
-    .nav-bar {
-        top: 10px;
-        padding: 10px 12px;
-        max-width: 80%;
-    }
-
-    
-
-    .nav-toggle {
-        width: 32px;
-        height: 24px;
-    }
-    .nav-bar{
-        position: fixed;
-        top:20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 4;
-
-        background-color: var(--Tertiary-background-III);
-
-        display: flex;
-        justify-content: space-between;
-        gap: 80px;
-        align-items: center;
-        padding: 15px 30px;
-
-        border-radius: 50px;
-        border: 1px solid rgb(255,255,255,0.3);
-        box-shadow: 0 8px 32px rgb(0, 0, 0,0.1);
-        
+    @media (max-width: 1020px) {
+        .nav-bar {
+            width: 40vw;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 16px;
+            gap: 12px;
+            border-radius: 30px;
         }
 
-}
+        .nav-links {
+            display: none;
+        }
+
+        .nav-btn-cta {
+            display: none;
+        }
+
+        .nav-toggle {
+            display: flex;
+        }
+    }
+
+        @media (max-width: 1069px) {
+        .nav-bar {
+            width: 40vw;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 16px;
+            gap: 12px;
+            border-radius: 30px;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .nav-btn-cta {
+            display: none;
+        }
+
+        .nav-toggle {
+            display: flex;
+        }
+    }
+
+    @media (min-width: 1070px) {
+        .nav-bar {
+            width: 70vw;
+            gap: 60px;
+        }
+    }
+
+
+
+
+
+
 
 
