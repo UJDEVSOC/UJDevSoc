@@ -58,7 +58,7 @@
     transition: 0.3s;
 }
 
-/* Hamburger button (hidden on desktop) */
+/* Hamburger button (hidden on desktop). */
 .nav-toggle {
     display: none;
     width: 36px;
