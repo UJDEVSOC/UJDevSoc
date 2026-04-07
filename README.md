@@ -1,7 +1,7 @@
 
 # UJDEVSOC Website
 
-A comprehensive website for the University of Johannesburg Developers Society, encompassing information about the society, upcoming events and projects.
+A comprehensive website for the University of Johannesburg's Developer Society, encompassing information about the society, upcoming events and projects.
 
 **Link to website:** https://stevenpitso.github.io/UJDevSoc/
 ## Tech Stack
