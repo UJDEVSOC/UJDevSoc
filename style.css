@@ -417,6 +417,7 @@ body{
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            width: 90%;
         }
 
         .event-card {
