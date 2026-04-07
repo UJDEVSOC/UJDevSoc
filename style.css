@@ -96,7 +96,7 @@ body{
     border: 2px dashed #ddd;
     border-radius: 50%;
     animation: spin-slow 60s linear infinite;
-    transform: translate();
+    
     
 }
 

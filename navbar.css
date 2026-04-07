@@ -140,6 +140,17 @@
         .nav-toggle {
             display: flex;
         }
+
+       .gear-icon-container{
+            width: 230px;
+            height: 230px;
+
+       }
+        .gear-icon{
+            position: absolute;
+            top: 80vh;
+            left: 0;
+        }
     }
 
         @media (max-width: 1069px) {
