@@ -3,7 +3,7 @@
 
 A comprehensive website for the University of Johannesburg's Developer Society, encompassing information about the society, upcoming events and projects.
 
-**Link to website:** https://stevenpitso.github.io/UJDevSoc/
+**Link to website:** [https://ujdevsoc.github.io/UJDevSoc/](https://ujdevsoc.github.io/UJDevSoc/)
 ## Tech Stack
 
 **Client:** HTML, CSS, JavaScript
