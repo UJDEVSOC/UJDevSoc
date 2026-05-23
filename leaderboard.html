@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="ujds-gears-animation.css">
+    <link rel="stylesheet" href="ujds-Scroll-Reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Leaderboard | UJ Developer Society</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./img/favicon/site.webmanifest">
+    <style>
+        .leaderboard-section {
+            background: #273036;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow-x: auto;
+        }
+        .leaderboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #1e2429;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .leaderboard-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .leaderboard-title h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f25c21, #ff8c42);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        .leaderboard-sub {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: inherit;
+        }
+        th {
+            background: #f25c21;
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #3a444c;
+            color: #e0e0e0;
+        }
+        tr:hover {
+            background: #2c363e;
+        }
+        .rank-cell {
+            font-weight: bold;
+            width: 70px;
+        }
+        .name-cell {
+            font-weight: 500;
+        }
+        .score-cell {
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #f7b32b;
+        }
+        .timestamp-note {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 0.2rem;
+        }
+        .loading-message, .error-message {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+        .error-message {
+            color: #f25c21;
+        }
+        .refresh-btn {
+            background: #f25c21;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            transition: 0.2s;
+        }
+        .refresh-btn:hover {
+            background: #d94a0f;
+        }
+        @media (max-width: 768px) {
+            .leaderboard-container {
+                padding: 1rem;
+            }
+            th, td {
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+            .leaderboard-title h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar-container">
+        <nav class="nav-bar">
+            <div class="logo">
+                <a href="index.html">
+                    <img class="logo-img" src="img/logo_bg.png" alt="UJ DevSoc Logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#mission">Mission</a></li>
+                <li><a href="index.html#leadership">Leadership</a></li>
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#Challenges">Challenges</a></li>
+                <li><a href="#" style="color:#f25c21;">Leaderboard</a></li>
+                <li><a href="index.html#FAQ">FAQ</a></li>
+            </ul>
+            <div class="nav-btn-cta"><a href="https://forms.gle/LTPUjhzgAaWvZuCh8" target="_blank">Join Us</a></div>
+            <div class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+            <a href="index.html#mission">Mission</a>
+            <a href="index.html#leadership">Leadership</a>
+            <a href="index.html#events">Events</a>
+            <a href="index.html#Challenges">Challenges</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="index.html#FAQ">FAQ</a>
+            <a href="https://forms.gle/LTPUjhzgAaWvZuCh8" target="_blank" class="mobile-cta">Join Us</a>
+        </div>
+    </div>
+
+    <section class="leaderboard-section">
+        <div class="leaderboard-container">
+            <div class="leaderboard-title">
+                <h1>🏆 Coding Challenge Leaderboard</h1>
+            </div>
+            <div class="leaderboard-sub">
+                <p>Top performers from our bi-weekly coding challenges. Ties broken by earlier submission time.</p>
+                <button class="refresh-btn" id="refreshLeaderboard"><i class="fas fa-sync-alt"></i> Refresh</button>
+            </div>
+            <div id="leaderboard-table-wrapper">
+                <div class="loading-message"><i class="fas fa-spinner fa-pulse"></i> Loading leaderboard...</div>
+            </div>
+            <div style="margin-top: 2rem; text-align: center; font-size: 0.85rem; color: #aaa;">
+                📌 <strong>Sorting:</strong> Highest points first. If points are equal, the earlier submission timestamp ranks higher.
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-logo-side">
+                <h2>UJDEVSOC</h2>
+                <p style="max-width: 300px; color: #999; line-height: 1.6;">
+                    The official developer society of the University of Johannesburg. Building the future, one line at a time.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.tiktok.com/@ujdevsoc" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.linkedin.com/company/uj-developerss-society/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/ujdevsoc?igsh=dWV1ZWF1azd4Z3Yx" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div style="display: flex; gap: 4rem;">
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Explore</h4>
+                    <ul style="list-style: none; color: #999; display: grid; gap: 0.8rem;">
+                        <li><a href="index.html#mission" style="color:#999; text-decoration:none;">Mission</a></li>
+                        <li><a href="index.html#leadership" style="color:#999; text-decoration:none;">Leadership</a></li>
+                        <li><a href="index.html#events" style="color:#999; text-decoration:none;">Events</a></li>
+                        <li><a href="index.html#Challenges" style="color:#999; text-decoration:none;">Challenges</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1.5rem;">Support</h4>
+                    <ul style="list-style: none; color: #999; display: grid; gap: 0.8rem;">
+                        <li>Contact Us</li>
+                        <li>FAQ</li>
+                        <li>Privacy Policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 UJ Developer Society. Made with <i class="fas fa-heart" style="color:var(--ujds-orange-typ-I)"></i> from APK</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTvWhC4yN0O3MlGDrfVkHCcvGAEMtB_awnZODjyIMTZhrKN9SyCR8CefL_-YJ7Qy_heXavauA6VbpFJ/pub?gid=0&single=true&output=csv';
+
+
+        // FETCH AND RENDER
+        async function fetchLeaderboard() {
+            const wrapper = document.getElementById('leaderboard-table-wrapper');
+            wrapper.innerHTML = '<div class="loading-message"><i class="fas fa-spinner fa-pulse"></i> Loading leaderboard...</div>';
+
+            try {
+                const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const csvText = await response.text();
+                
+                const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== '');
+                if (lines.length < 2) throw new Error('No data rows found');
+                
+                // Assume first row is header: timestamp, username, points
+                const data = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
+                    if (cols.length >= 3) {
+                        const timestamp = cols[0];
+                        const username = cols[1];
+                        const points = parseInt(cols[2], 10);
+                        if (username && !isNaN(points)) {
+                            data.push({ username, points, timestamp });
+                        }
+                    }
+                }
+                
+                if (data.length === 0) throw new Error('No valid data entries');
+                
+                // Sort: first by points DESC, then by timestamp ASC (earlier is better)
+                data.sort((a, b) => {
+                    if (a.points !== b.points) {
+                        return b.points - a.points;
+                    }
+                    // Compare timestamps (strings like "YYYY-MM-DD HH:MM:SS" work lexicographically)
+                    return a.timestamp.localeCompare(b.timestamp);
+                });
+                
+                renderTable(data);
+            } catch (error) {
+                console.error('Error fetching from Google Sheets:', error);
+                // Use demo data with proper sorting
+                const sortedDemo = [...DEMO_DATA].sort((a,b) => {
+                    if (a.points !== b.points) return b.points - a.points;
+                    return a.timestamp.localeCompare(b.timestamp);
+                });
+                renderTable(sortedDemo, true);
+            }
+        }
+
+        function renderTable(leaderboardData, isDemo = false) {
+            const wrapper = document.getElementById('leaderboard-table-wrapper');
+            if (!leaderboardData.length) {
+                wrapper.innerHTML = '<div class="error-message">⚠️ No leaderboard data available yet. Be the first to submit a challenge!</div>';
+                return;
+            }
+
+            let html = `
+                 <table>
+                    <thead>
+                        <tr><th>Rank</th><th>Member</th><th>Points</th><th>Submission Time</th></tr>
+                    </thead>
+                    <tbody>
+            `;
+            leaderboardData.forEach((entry, idx) => {
+                let rankIcon = '';
+                if (idx === 0) rankIcon = '🏆 ';
+                else if (idx === 1) rankIcon = '🥈 ';
+                else if (idx === 2) rankIcon = '🥉 ';
+                html += `
+                    <tr>
+                        <td class="rank-cell">${rankIcon}${idx + 1}</td>
+                        <td class="name-cell">${escapeHtml(entry.username)}</td>
+                        <td class="score-cell">${entry.points} pts</td>
+                        <td style="font-size: 0.8rem; color: #aaa;">${escapeHtml(entry.timestamp || '—')}</td>
+                    </tr>
+                `;
+            });
+            html += `</tbody>}</table>`;
+            if (isDemo) {
+                html += `<div class="error-message" style="margin-top: 1rem; text-align:center;">⚠️ Using demo data — set your Google Sheets URL and ensure columns: Timestamp, Username, Points.</div>`;
+            }
+            wrapper.innerHTML = html;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        document.getElementById('refreshLeaderboard').addEventListener('click', fetchLeaderboard);
+        fetchLeaderboard();
+
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (navToggle && mobileMenu) {
+            navToggle.addEventListener('click', () => {
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true' ? false : true;
+                navToggle.setAttribute('aria-expanded', expanded);
+                mobileMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+        }
+    </script>
+</body>
+</html>
