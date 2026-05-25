@@ -81,11 +81,6 @@
             font-weight: bold;
             color: #f7b32b;
         }
-        .timestamp-note {
-            font-size: 0.7rem;
-            color: #888;
-            margin-top: 0.2rem;
-        }
         .loading-message, .error-message {
             text-align: center;
             padding: 2rem;
@@ -109,16 +104,48 @@
         .refresh-btn:hover {
             background: #d94a0f;
         }
+    
+        /* Mobile adjustments */
         @media (max-width: 768px) {
+            .leaderboard-section {
+                padding: 3rem 1rem;
+            }
             .leaderboard-container {
                 padding: 1rem;
             }
+            .leaderboard-title h1 {
+                font-size: 1.8rem;  /* Smaller title on mobile */
+            }
+            .leaderboard-sub p {
+                font-size: 0.85rem;
+            }
             th, td {
-                padding: 0.6rem;
+                padding: 0.5rem;
+                font-size: 0.8rem;  /* Smaller table text */
+            }
+            .rank-cell {
+                width: 50px;
+            }
+            .score-cell {
                 font-size: 0.9rem;
             }
-            .leaderboard-title h1 {
-                font-size: 2rem;
+            /* Hide submission time column */
+            th:nth-child(4),
+            td:nth-child(4) {
+                display: none;
+            }
+            /* Ensure table doesn't force wide layout */
+            table {
+                table-layout: fixed;
+            }
+            th:first-child, td:first-child {
+                width: 60px;
+            }
+            th:nth-child(2), td:nth-child(2) {
+                width: auto;
+            }
+            th:nth-child(3), td:nth-child(3) {
+                width: 80px;
             }
         }
     </style>
